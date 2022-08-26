@@ -1,0 +1,7 @@
+.vs/
+DX11/x64/
+x64/Debug/DefaultShader.cso
+x64/Debug/DX11.exe
+x64/Debug/DX11.pdb
+x64/Release/DX11.exe
+x64/Release/DX11.pdb
