@@ -104,16 +104,16 @@ void GameEngine::Init()
     {
         shared_ptr<GameObject> Object = make_shared<GameObject>();
         shared_ptr<Transform> transform = make_shared<Transform>();
-        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 200);
+        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 1);
 
         shared_ptr<Shader> shader = GET_SINGLE(ResourceManager)->GetResource<Shader>("DefaultShader");
-        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Rectangle");
+        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("humanoid");
         shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("BoxMaterial");
         shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("BoxNormal");
 
         transform->Init(-48, 0, -48);
         renderer->SetMaterial(material);
-        renderer->SetMaterial(normal);
+        //renderer->SetMaterial(normal);
         renderer->SetMesh(mesh);
         renderer->SetShader(shader);
 

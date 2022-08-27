@@ -18,7 +18,7 @@ public:
 
 	void SetOrigin(const XMFLOAT3& rot);
 
-	XMFLOAT3 GetPos() { return _pos; }
+	XMFLOAT3 GetPos() { return pos; }
 	XMFLOAT3 GetScale() { return _scale; }
 	XMFLOAT3 GetRotation() { return _rot; }
 
@@ -30,7 +30,7 @@ public:
 
 
 private:
-	XMFLOAT3 _pos;
+	XMFLOAT3 pos;
 	XMFLOAT3 _rot;
 	XMFLOAT3 _scale;
 

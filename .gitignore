@@ -5,3 +5,6 @@ x64/Debug/DX11.exe
 x64/Debug/DX11.pdb
 x64/Release/DX11.exe
 x64/Release/DX11.pdb
+lib/debug
+lib/release
+DX11/*.fbx

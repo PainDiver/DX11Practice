@@ -107,6 +107,8 @@ float4 PS(PS_INPUT input) : SV_Target0
 
 	float4 color = (diffuse * lightColor + ambient * lightColor)  + specular;
 
+
+
 	return color;
 }
 

@@ -15,8 +15,10 @@
 #include <tchar.h>
 #include <string>
 #include <wrl.h>
+#include <fbxsdk.h>
 
 
+#pragma comment(lib,"libfbxsdk.lib")
 #pragma comment(lib,"DirectXTex.lib")
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"dxgi.lib")

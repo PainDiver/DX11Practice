@@ -109,6 +109,7 @@ public:
     template<typename T>
     shared_ptr<T> GetResource(string name);
 
+
 private:
     unordered_map<string,shared_ptr<Object>> _resources;
 

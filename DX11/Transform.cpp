@@ -4,7 +4,7 @@
 
 Transform::Transform() : Component(EComponent::Transform)
 {
-	_pos = XMFLOAT3{ 0,0,0 };
+	pos = XMFLOAT3{ 0,0,0 };
 
 	_rot = XMFLOAT3{ 0,0,0 };
 
@@ -21,7 +21,7 @@ Transform::Transform() : Component(EComponent::Transform)
 
 void Transform::Init(float x, float y, float z)
 {
-	_pos = XMFLOAT3{ x,y,z };
+	pos = XMFLOAT3{ x,y,z };
 
 	_rot = XMFLOAT3{ 0,0,0};
 
@@ -37,7 +37,7 @@ void Transform::Init(float x, float y, float z)
 void Transform::Update()
 {
 	XMMATRIX scale = XMMatrixScaling(_scale.x, _scale.y, _scale.z);
-	XMMATRIX translation = XMMatrixTranslation(_pos.x, _pos.y, _pos.z);
+	XMMATRIX translation = XMMatrixTranslation(pos.x, pos.y, pos.z);
 	XMMATRIX rotation = XMMatrixRotationX(_rot.x);
 	rotation *=  XMMatrixRotationY(_rot.y);
 	rotation *= XMMatrixRotationZ(_rot.z);
@@ -49,7 +49,7 @@ void Transform::Update()
 
 void Transform::SetPos(const XMFLOAT3& t)
 {
-	_pos = t;
+	pos = t;
 }
 
 void Transform::SetScale(const XMFLOAT3& s)

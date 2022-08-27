@@ -3,11 +3,27 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Material.h"
-
+#include "FBXLoader.h"
 
 
 void ResourceManager::MakeResources()
 {
+    vector<Vertex> v;
+    vector<WORD> i;
+    GET_SINGLE(FBXLoader)->AddScene("dancer.fbx");
+    GET_SINGLE(FBXLoader)->GetInputSet(0, v, i);
+    Vertex* vArray = &v[0];
+    WORD* iArray = &i[0];
+
+    shared_ptr<Mesh> humanoid = make_shared<Mesh>(
+        vArray,
+        iArray,
+        sizeof(Vertex),
+        v.size(),
+        i.size());
+
+
+
     shared_ptr<Mesh> rectangle = make_shared<Mesh>(
         RectSpace::vertices,
         RectSpace::indices,
@@ -21,6 +37,9 @@ void ResourceManager::MakeResources()
         sizeof(Vertex),
         PlaneSpace::vertexSize,
         PlaneSpace::indexSize);
+
+
+
 
 
     shared_ptr<Shader> skyMapShader = make_shared<Shader>(L"../HLSL/SkyMap.fx", L"../HLSL/SkyMap.fx", RASTERIZER_DEPTH_SKYMAP);
@@ -51,8 +70,10 @@ void ResourceManager::MakeResources()
     GET_SINGLE(ResourceManager)->AddResource("BoxMaterial", material);
     GET_SINGLE(ResourceManager)->AddResource("BoxNormal", normal);
     GET_SINGLE(ResourceManager)->AddResource("SkyMapTexture", skymapMaterial);
+
     GET_SINGLE(ResourceManager)->AddResource("Rectangle", rectangle);
     GET_SINGLE(ResourceManager)->AddResource("Plane", plane);
+    GET_SINGLE(ResourceManager)->AddResource("humanoid", humanoid);
 
 
 }

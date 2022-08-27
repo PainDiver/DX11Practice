@@ -115,6 +115,9 @@
     <ClInclude Include="Object.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="FBXLoader.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX11.rc">
@@ -195,6 +198,9 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="FBXLoader.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
