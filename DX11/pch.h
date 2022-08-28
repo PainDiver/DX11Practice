@@ -16,7 +16,9 @@
 #include <string>
 #include <wrl.h>
 #include <fbxsdk.h>
-
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 
 #pragma comment(lib,"libfbxsdk.lib")
 #pragma comment(lib,"DirectXTex.lib")

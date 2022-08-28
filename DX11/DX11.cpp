@@ -6,6 +6,7 @@
 #include "DX11.h"
 #include "GameEngine.h"
 
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -47,10 +48,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     GENGINE->Init();
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    ImGui::StyleColorsDark();
+    ImGui_ImplWin32_Init(GWINDOW._hwnd);
+    ImGui_ImplDX11_Init(DEVICE.Get(),CONTEXT.Get());
+
     MSG msg{};
     while (msg.message != WM_QUIT)
     {
-        if (PeekMessage(&msg, nullptr,0,0,PM_REMOVE))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
             {
@@ -58,9 +67,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 DispatchMessage(&msg);
             }
         }
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
         GENGINE->Update();
+        
     }
 
+    ImGui_ImplDX11_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
 
     return (int) msg.wParam;
 }
@@ -145,8 +160,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        return true;
+
     switch (message)
     {
 

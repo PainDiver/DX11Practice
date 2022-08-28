@@ -73,7 +73,6 @@ void GameEngine::Init()
 #pragma endregion
 
 #pragma region Plane
-
     {
         shared_ptr<GameObject> Object = make_shared<GameObject>();
         shared_ptr<Transform> transform = make_shared<Transform>();
@@ -104,16 +103,17 @@ void GameEngine::Init()
     {
         shared_ptr<GameObject> Object = make_shared<GameObject>();
         shared_ptr<Transform> transform = make_shared<Transform>();
-        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 1);
+        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 200);
 
         shared_ptr<Shader> shader = GET_SINGLE(ResourceManager)->GetResource<Shader>("DefaultShader");
-        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("humanoid");
-        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("BoxMaterial");
-        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("BoxNormal");
+        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Emmy");
+        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("EmmyTex");
+        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("EmmyNormal");
 
         transform->Init(-48, 0, -48);
+        transform->SetScale({ 1/100.f, 1 / 100.f, 1 / 100.f });
         renderer->SetMaterial(material);
-        //renderer->SetMaterial(normal);
+        renderer->SetMaterial(normal);
         renderer->SetMesh(mesh);
         renderer->SetShader(shader);
 
@@ -170,6 +170,10 @@ void GameEngine::Update()
         _currentScene->LastUpdate();
     }
 
+
+
+
+
     Render();
 }
 
@@ -200,6 +204,8 @@ void GameEngine::Render()
 
 void GameEngine::RenderEnd()
 {
+    ProcessIMGUI();
+
     _device->GetSwapChain()->Present(0, 0);
 }
 
@@ -216,4 +222,52 @@ void GameEngine::Clear()
     ComPtr <ID3D11DepthStencilView> multipleDepthStencilView = _device->GetMultipleRenderDepthStencilView();
     _device->GetContext()->ClearDepthStencilView(multipleDepthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
     _device->GetContext()->ClearRenderTargetView(multipleRendertargetView.Get(), ClearColor);
+}
+
+void GameEngine::ProcessIMGUI()
+{
+    bool show_demo_window = true;
+    bool show_another_window = false;
+
+    ImGui::NewFrame();
+
+    if (show_demo_window)
+        ImGui::ShowDemoWindow(&show_demo_window);
+
+    {
+        static float f = 0.0f;
+        static int counter = 0;
+
+        
+        ImGui::Begin("Hello, world!", 0,ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);                          // Create a window called "Hello, world!" and append into it.
+        
+
+        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+        ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+        ImGui::Checkbox("Another Window", &show_another_window);
+
+        ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+        if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+            counter++;
+        ImGui::SameLine();
+        ImGui::Text("counter = %d", counter);
+
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        ImGui::End();
+    }
+
+    // 3. Show another simple window.
+    if (show_another_window)
+    {
+        ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+        ImGui::Text("Hello from another window!");
+        if (ImGui::Button("Close Me"))
+            show_another_window = false;
+        ImGui::End();
+    }
+
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
 }

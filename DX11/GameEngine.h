@@ -24,6 +24,8 @@ public:
 	
 	void Clear();
 
+	void ProcessIMGUI();
+
 
 	shared_ptr<Device> GetDevice() { return _device; }
 

@@ -9,7 +9,7 @@ XMFLOAT4 Light::_color;
 
 void Light::Init()
 {
-	_dir = { 1,-4,0,0 };
+	_dir = { 1,-1,0,0 };
 	
 	XMVECTOR dir;
 	dir = XMLoadFloat4(&_dir);

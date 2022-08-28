@@ -32,7 +32,7 @@ void FBXLoader::GetInputSet(int index, vector<Vertex>& outV, vector<WORD>& outI)
 			vertex.normal = {fv.normal.x,fv.normal.y,-fv.normal.z};
 			vertex.tangent = { fv.tangent.x,fv.tangent.y,-fv.tangent.z };
 			vertex.uv = { fv.uv.x ,-fv.uv.y };
-			vertex.pos = { fv.pos.x / 10.f,fv.pos.y / 10.f,-fv.pos.z / 10.f };
+			vertex.pos = { fv.pos.x ,fv.pos.y,-fv.pos.z };
 		}
 		else
 		{
@@ -40,7 +40,7 @@ void FBXLoader::GetInputSet(int index, vector<Vertex>& outV, vector<WORD>& outI)
 			vertex.normal = fv.normal;
 			vertex.tangent = fv.tangent;
 			vertex.uv = fv.uv;
-			vertex.pos = { fv.pos.x/10.f,fv.pos.y/10.f,fv.pos.z / 10.f };
+			vertex.pos = { fv.pos.x,fv.pos.y,fv.pos.z};
 		}
 
 		outV.push_back(vertex);
@@ -102,6 +102,15 @@ void FBXLoader::RecursiveParse(FbxNode* node,int containerIndex)
 				for (int j = 0; j < 3; j++)
 				{
 					int vertexIndex = mesh->GetPolygonVertex(i, j);
+					
+					if (ccw)
+					{
+						index._indices[2 - j] = vertexIndex;
+					}
+					else
+					{
+						index._indices[j] = vertexIndex;
+					}
 					ReadVertexInfo(mesh, vertexIndex,IndexinIndex, _vertices[containerIndex][vertexIndex]);
 					IndexinIndex++;
 				}
