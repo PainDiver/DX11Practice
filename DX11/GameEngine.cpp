@@ -100,28 +100,28 @@ void GameEngine::Init()
 
 
 #pragma region Object
-    {
-        shared_ptr<GameObject> Object = make_shared<GameObject>();
-        shared_ptr<Transform> transform = make_shared<Transform>();
-        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 1);
+    //{
+    //    shared_ptr<GameObject> Object = make_shared<GameObject>();
+    //    shared_ptr<Transform> transform = make_shared<Transform>();
+    //    shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 1);
 
-        shared_ptr<Shader> shader = GET_SINGLE(ResourceManager)->GetResource<Shader>("DefaultShader");
-        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Dragon");
-        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("DragonTex");
-        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("DragonNormal");
+    //    shared_ptr<Shader> shader = GET_SINGLE(ResourceManager)->GetResource<Shader>("DefaultShader");
+    //    shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Dragon");
+    //    shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("DragonTex");
+    //    shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("DragonNormal");
 
-        transform->Init(-48, 0, -48);
-        transform->SetScale({ 1.f/10.f, 1.f / 10.f, 1.f / 10.f });
-        renderer->SetMaterial(material);
-        renderer->SetMaterial(normal);
-        renderer->SetMesh(mesh);
-        renderer->SetShader(shader);
+    //    transform->Init(-48, 0, -48);
+    //    transform->SetScale({ 1.f/10.f, 1.f / 10.f, 1.f / 10.f });
+    //    renderer->SetMaterial(material);
+    //    renderer->SetMaterial(normal);
+    //    renderer->SetMesh(mesh);
+    //    renderer->SetShader(shader);
 
-        Object->AddComponent(transform);
-        Object->AddComponent(renderer);
+    //    Object->AddComponent(transform);
+    //    Object->AddComponent(renderer);
 
-        _currentScene->AddGameObject(Object);
-    }
+    //    _currentScene->AddGameObject(Object);
+    //}
 
     {
         shared_ptr<GameObject> Object = make_shared<GameObject>();
@@ -129,9 +129,9 @@ void GameEngine::Init()
         shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 100);
 
         shared_ptr<Shader> shader = GET_SINGLE(ResourceManager)->GetResource<Shader>("DefaultShader");
-        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Dancer");
-        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("DancerTex");
-        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("DancerNormal");
+        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Emmy");
+        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("EmmyTex");
+        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("EmmyNormal");
 
         transform->Init(-0, 0, -0);
         transform->SetScale({ 1.f / 100.f, 1.f / 100.f, 1.f / 100.f });

@@ -25,32 +25,32 @@ void ResourceManager::MakeResources()
     v.clear();
     i.clear();
 
-    GET_SINGLE(FBXLoader)->AddScene("dancer.fbx");
-    GET_SINGLE(FBXLoader)->GetInputSet(1, v, i);
-    vArray = &v[0];
-    iArray = &i[0];
+    //GET_SINGLE(FBXLoader)->AddScene("dancer.fbx");
+    //GET_SINGLE(FBXLoader)->GetInputSet(1, v, i);
+    //vArray = &v[0];
+    //iArray = &i[0];
 
-    shared_ptr<Mesh> dancer = make_shared<Mesh>(
-        vArray,
-        iArray,
-        sizeof(Vertex),
-        v.size(),
-        i.size());
+    //shared_ptr<Mesh> dancer = make_shared<Mesh>(
+    //    vArray,
+    //    iArray,
+    //    sizeof(Vertex),
+    //    v.size(),
+    //    i.size());
 
-    v.clear();
-    i.clear();
+    //v.clear();
+    //i.clear();
 
-    GET_SINGLE(FBXLoader)->AddScene("Dragon.fbx");
-    GET_SINGLE(FBXLoader)->GetInputSet(2, v, i);
-    vArray = &v[0];
-    iArray = &i[0];
+    //GET_SINGLE(FBXLoader)->AddScene("Dragon.fbx");
+    //GET_SINGLE(FBXLoader)->GetInputSet(2, v, i);
+    //vArray = &v[0];
+    //iArray = &i[0];
 
-    shared_ptr<Mesh> dragon = make_shared<Mesh>(
-        vArray,
-        iArray,
-        sizeof(Vertex),
-        v.size(),
-        i.size());
+    //shared_ptr<Mesh> dragon = make_shared<Mesh>(
+    //    vArray,
+    //    iArray,
+    //    sizeof(Vertex),
+    //    v.size(),
+    //    i.size());
 
 
 
@@ -117,8 +117,8 @@ void ResourceManager::MakeResources()
     GET_SINGLE(ResourceManager)->AddResource("Rectangle", rectangle);
     GET_SINGLE(ResourceManager)->AddResource("Plane", plane);
     GET_SINGLE(ResourceManager)->AddResource("Emmy", emmy);
-    GET_SINGLE(ResourceManager)->AddResource("Dancer", dancer);
-    GET_SINGLE(ResourceManager)->AddResource("Dragon", dragon);
+    //GET_SINGLE(ResourceManager)->AddResource("Dancer", dancer);
+    //GET_SINGLE(ResourceManager)->AddResource("Dragon", dragon);
 
 
 }
