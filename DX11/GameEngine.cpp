@@ -103,15 +103,38 @@ void GameEngine::Init()
     {
         shared_ptr<GameObject> Object = make_shared<GameObject>();
         shared_ptr<Transform> transform = make_shared<Transform>();
-        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 200);
+        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 1);
 
         shared_ptr<Shader> shader = GET_SINGLE(ResourceManager)->GetResource<Shader>("DefaultShader");
-        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Emmy");
-        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("EmmyTex");
-        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("EmmyNormal");
+        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Dragon");
+        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("DragonTex");
+        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("DragonNormal");
 
         transform->Init(-48, 0, -48);
-        transform->SetScale({ 1/100.f, 1 / 100.f, 1 / 100.f });
+        transform->SetScale({ 1.f/10.f, 1.f / 10.f, 1.f / 10.f });
+        renderer->SetMaterial(material);
+        renderer->SetMaterial(normal);
+        renderer->SetMesh(mesh);
+        renderer->SetShader(shader);
+
+        Object->AddComponent(transform);
+        Object->AddComponent(renderer);
+
+        _currentScene->AddGameObject(Object);
+    }
+
+    {
+        shared_ptr<GameObject> Object = make_shared<GameObject>();
+        shared_ptr<Transform> transform = make_shared<Transform>();
+        shared_ptr<Renderer> renderer = make_shared<Renderer>(ERenderType::INSTANCE, 100);
+
+        shared_ptr<Shader> shader = GET_SINGLE(ResourceManager)->GetResource<Shader>("DefaultShader");
+        shared_ptr<Mesh> mesh = GET_SINGLE(ResourceManager)->GetResource<Mesh>("Dancer");
+        shared_ptr<Material> material = GET_SINGLE(ResourceManager)->GetResource<Material>("DancerTex");
+        shared_ptr<Material> normal = GET_SINGLE(ResourceManager)->GetResource<Material>("DancerNormal");
+
+        transform->Init(-0, 0, -0);
+        transform->SetScale({ 1.f / 100.f, 1.f / 100.f, 1.f / 100.f });
         renderer->SetMaterial(material);
         renderer->SetMaterial(normal);
         renderer->SetMesh(mesh);
@@ -226,24 +249,17 @@ void GameEngine::Clear()
 
 void GameEngine::ProcessIMGUI()
 {
-    bool show_demo_window = true;
-    bool show_another_window = false;
+    static bool show_another_window = false;
 
     ImGui::NewFrame();
-
-    if (show_demo_window)
-        ImGui::ShowDemoWindow(&show_demo_window);
-
     {
         static float f = 0.0f;
         static int counter = 0;
-
+        
         
         ImGui::Begin("Hello, world!", 0,ImGuiWindowFlags_::ImGuiWindowFlags_AlwaysAutoResize);                          // Create a window called "Hello, world!" and append into it.
         
-
         ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
         ImGui::Checkbox("Another Window", &show_another_window);
 
         ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f

@@ -7,6 +7,13 @@ enum EStatus
 	SUCCESS
 };
 
+struct FbxBoneInfo
+{
+	string					boneName;
+	int32					parentIndex;
+	FbxAMatrix				matOffset;
+};
+
 struct FVertex
 {
 	FVertex() {}
@@ -16,11 +23,12 @@ struct FVertex
 	void SetTangent(float x, float y, float z) { tangent.x = x, tangent.y = y, tangent.z = z; }
 
 	XMFLOAT3 pos;
-	XMFLOAT2 uv;
+	XMFLOAT2 uv = {0,0};
 	XMFLOAT3 normal;
 	XMFLOAT3 tangent;
-	
-	bool rightHanded = true;
+
+	bool rightHanded;
+
 };
 
 
@@ -31,7 +39,20 @@ struct FIndex
 	array<int, 3> _indices;
 };
 
+struct FbxKeyFrameInfo
+{
+	FbxAMatrix  matTransform;
+	double		time;
+};
 
+struct FbxAnimClipInfo
+{
+	string			name;
+	FbxTime			startTime;
+	FbxTime			endTime;
+	FbxTime::EMode	mode;
+	vector<vector<FbxKeyFrameInfo>>	keyFrames;
+};
 
 class FBXLoader
 {
@@ -56,12 +77,30 @@ public :
 private:
 	void ParseScene(int index);
 
-	void RecursiveParse(FbxNode* node,int index);
-	
-	void ReadVertexInfo(FbxMesh* mesh,int vertexIndex, int IndexinIndex, FVertex& vertex);
+	void RecursiveParse(FbxNode* node,int containerIndex);
 
+	void ReadVertexInfo(FbxMesh* mesh,int vertexIndex, int IndexinIndex, int containerIndex,int texIndex);
+
+
+	void LoadBones(FbxNode* node,int containerIndex, int32 idx = 0, int32 parentIdx = -1);
+
+	void LoadAnimationInfo(int containerIndex);
+
+
+
+
+//	void LoadAnimationData(FbxMesh* mesh, FbxMeshInfo* meshInfo);
+//	void LoadBoneWeight(FbxCluster* cluster, int32 boneIdx, FbxMeshInfo* meshInfo);
+//	void LoadOffsetMatrix(FbxCluster* cluster, const FbxAMatrix& matNodeTransform, int32 boneIdx, FbxMeshInfo* meshInfo);
+//	void LoadKeyframe(int32 animIndex, FbxNode* node, FbxCluster* cluster, const FbxAMatrix& matNodeTransform, int32 boneIdx, FbxMeshInfo* container);
+
+//	int32 FindBoneIndex(string name);
+//	FbxAMatrix GetTransform(FbxNode* node);
+
+//	void FillBoneWeight(FbxMesh* mesh, FbxMeshInfo* meshInfo);
 
 private:
+
 	FbxManager* _manager;
 
 	FbxImporter* _importer;
@@ -72,5 +111,11 @@ private:
 	vector<vector<FVertex>> _vertices;
 
 	vector<vector<FIndex>> _indices;
+
+	vector<vector<FbxBoneInfo>> _bones;
+
+	FbxArray<FbxString*>		_animNames;
+
+	vector<vector<FbxAnimClipInfo>>	_animClips;
 };
 

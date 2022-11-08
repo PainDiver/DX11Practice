@@ -37,6 +37,21 @@ void ResourceManager::MakeResources()
         v.size(),
         i.size());
 
+    v.clear();
+    i.clear();
+
+    GET_SINGLE(FBXLoader)->AddScene("Dragon.fbx");
+    GET_SINGLE(FBXLoader)->GetInputSet(2, v, i);
+    vArray = &v[0];
+    iArray = &i[0];
+
+    shared_ptr<Mesh> dragon = make_shared<Mesh>(
+        vArray,
+        iArray,
+        sizeof(Vertex),
+        v.size(),
+        i.size());
+
 
 
     shared_ptr<Mesh> rectangle = make_shared<Mesh>(
@@ -73,6 +88,8 @@ void ResourceManager::MakeResources()
     shared_ptr<Material> dancerNormal = make_shared<Material>(L"dancerNormal.jpg");
     shared_ptr<Material> emmyTex = make_shared<Material>(L"emmyTex.png");
     shared_ptr<Material> emmyNormal = make_shared<Material>(L"emmyNormal.png");
+    shared_ptr<Material> dragonTex = make_shared<Material>(L"DragonTex.jpg");
+    shared_ptr<Material> dragonNormal = make_shared<Material>(L"DragonNormal.jpg");
 
 
     
@@ -93,13 +110,15 @@ void ResourceManager::MakeResources()
     GET_SINGLE(ResourceManager)->AddResource("DancerNormal", dancerNormal);
     GET_SINGLE(ResourceManager)->AddResource("EmmyTex", emmyTex);
     GET_SINGLE(ResourceManager)->AddResource("EmmyNormal", emmyNormal);
-
+    GET_SINGLE(ResourceManager)->AddResource("DragonTex", dragonTex);
+    GET_SINGLE(ResourceManager)->AddResource("DragonNormal", dragonNormal);
 
 
     GET_SINGLE(ResourceManager)->AddResource("Rectangle", rectangle);
     GET_SINGLE(ResourceManager)->AddResource("Plane", plane);
     GET_SINGLE(ResourceManager)->AddResource("Emmy", emmy);
     GET_SINGLE(ResourceManager)->AddResource("Dancer", dancer);
+    GET_SINGLE(ResourceManager)->AddResource("Dragon", dragon);
 
 
 }

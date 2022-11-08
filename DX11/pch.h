@@ -20,11 +20,16 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
-#pragma comment(lib,"libfbxsdk.lib")
+#pragma comment(lib, "libfbxsdk-md.lib")
+#pragma comment(lib, "libxml2-md.lib")
+#pragma comment(lib, "zlib-md.lib")
+
 #pragma comment(lib,"DirectXTex.lib")
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib,"d3dcompiler.lib")
+
+
 
 using namespace std;
 using namespace DirectX;
