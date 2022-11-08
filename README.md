@@ -10,4 +10,6 @@
 
 wasd로 움직일수 있고 왼쪽마우스 클릭으로 드래깅하여 화면을 전환시킬수있습니다.
 
-https://free3d.com/3d-models/fbx-emmy 에서 emmy.fbx 이름으로 바꾸어 소스폴더에 넣으면 실행됩니다.
+# 
+emmy.fbx파일이 없으면 실행되지 않습니다.
+https://free3d.com/3d-models/fbx-emmy 에서 fbx파일을 다운로드 받은 후, DX11폴더에 emmy.fbx 이름으로 바꾸어 소스폴더에 넣으면 실행됩니다.
